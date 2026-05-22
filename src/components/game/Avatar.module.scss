@@ -1,0 +1,13 @@
+.avatar {
+    position: absolute;
+    left: calc(50% - 5rem);
+    top: -5rem;
+    aspect-ratio: 1;
+    width: 10rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 184, 74, 0.72);
+
+    @media (width <=720px) {
+        display: none;
+    }
+}

@@ -1,0 +1,8 @@
+node_modules
+public/WIPEOUT/*
+!public/WIPEOUT/README.md
+public/WIPEOUT2/*
+!public/WIPEOUT2/README.md
+public/soundtrack/*
+dist
+.env
