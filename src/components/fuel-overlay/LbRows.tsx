@@ -26,7 +26,7 @@ export function LbRows({ entries }: { entries: LbEntry[] }) {
 						<div className={styles.avatarWrap}>
 							<img
 								src={`https://ik.imagekit.io/olibos/tr:n-thumb/${p.av}.jpg`}
-								alt="avatar"
+								alt=""
 								className={styles.avatar}
 							/>
 						</div>
