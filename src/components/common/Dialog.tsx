@@ -6,14 +6,15 @@ import { useMenu } from '../../hooks/menu';
 
 export type DialogProps = DialogHTMLAttributes<HTMLDialogElement> & {
     autoScroll?: boolean;
+    showCloseButton?: boolean;
 }
 
 export function Dialog({
     className,
-    open,
     autoScroll,
     children,
     onClose,
+    showCloseButton = true,
     ...dialogProps
 }: DialogProps) {
     const contentRef = useRef<HTMLFormElement>(null);
@@ -53,13 +54,13 @@ export function Dialog({
     function stopPropagation(e: SyntheticEvent) {
         e.stopPropagation();
     }
-    
+
     useEffect(() => {
         const controller = new AbortController();
         addEventListener('click', () => close?.(), { signal: controller.signal });
         addEventListener('keydown', e => {
             const event = e as unknown as KeyboardEvent;
-            if (event.key === 'Escape') {
+            if (event.key === 'Escape' || event.key === 'Enter') {
                 e.preventDefault();
                 close?.();
             }
@@ -70,8 +71,16 @@ export function Dialog({
     }, []);
 
     return (
-        <dialog className={clsx(styles.dialog, className)} open={open} {...dialogProps} onClose={handleClose} onClick={stopPropagation}>
+        <dialog className={clsx(styles.dialog, className)} {...dialogProps} onClose={handleClose} onClick={stopPropagation}>
             <form method="dialog" className={styles.form} ref={contentRef}>
+                {showCloseButton && (
+                    <button className={styles.closeButton} title="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                )}
                 {children}
             </form>
         </dialog>
