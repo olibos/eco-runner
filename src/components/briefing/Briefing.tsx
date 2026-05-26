@@ -1,6 +1,6 @@
 import Typewriter from "typewriter-effect";
 import { Dialog } from "../common/Dialog";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const title = (text: string) => `<strong style="font-size: 1.5em;">${text}</strong>`
 
@@ -13,11 +13,13 @@ export function Briefing({ onClose }: Props) {
     return (
         <Dialog open autoScroll onClose={onClose}>
             <Typewriter
+                options={{cursor: "_"}}
                 onInit={(typewriter) => {
                     typewriter
                         .changeDelay(50)
                         .typeString(title('TRANSMISSION CRYPTÉE...'))
                         .pauseFor(500)
+                        .changeDelay(25)
                         .typeString(`<br><br>
 
 Le triangle de Muzor est verrouillé! Les flux énergétiques mondiaux sont à l'arrêt et les réserves de la Corporation sont au plus bas.
@@ -39,7 +41,7 @@ L'efficience est la seule métrique qui compte...`)
                         .start();
                 }}
             />
-            {button && <button className="dialog-button" autoFocus>Close</button>}
+            {button && <button className="dialog-button">Close</button>}
         </Dialog>
     );
 }
