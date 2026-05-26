@@ -15,9 +15,9 @@ export function Intro({ onClose }: Props) {
         const handle = async () => {
             if (controller.signal.aborted) return;
             controller.abort();
-            await document.body.requestFullscreen().catch(console.warn);
             autoPlay();
             onClose();
+            await document.body.requestFullscreen().catch(console.warn);
         };
         window.addEventListener('keypress', handle, { signal: controller.signal });
         window.addEventListener('click', handle, { signal: controller.signal });
