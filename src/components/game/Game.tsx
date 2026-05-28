@@ -9,10 +9,12 @@ import { Leaderboard } from "./Leaderboard";
 import { Challenges } from "./Challenges";
 import { useFullscreen } from "../../hooks/full-screen";
 import { useFuelData } from "../../hooks/useFuelData";
+import { useBeforeInstallPrompt } from "../../hooks/before-install-prompt";
 
 export function Game() {
     const [showBriefing, setShowBriefing] = useLocalState('show-briefing', true);
     const { data } = useFuelData();
+    const beforeInstallPrompt = useBeforeInstallPrompt();
     const isFullscreen = useFullscreen();
     function handleClose() {
         document.exitFullscreen();
@@ -40,6 +42,7 @@ export function Game() {
                         <MenuItem label="Briefing">
                             <Briefing />
                         </MenuItem>
+                        {beforeInstallPrompt && <MenuItem label="Installer" onClick={beforeInstallPrompt} />}
                         {isFullscreen && <MenuItem label="Fermer" onClick={handleClose} />}
                     </MainMenu>
                 </>

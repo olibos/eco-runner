@@ -18,7 +18,12 @@ const app = new Elysia()
   .onBeforeHandle(({user, request, redirect})=>{
     const url = new URL(request.url);
     if (url.pathname === '/site.webmanifest') return;
-    if (!user) return redirect('/auth/login');
+    if (user) return;
+    
+    if (url.pathname.startsWith('/api')) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+    return redirect('/auth/login');
   })
 
 

@@ -51,7 +51,7 @@ async function signSessionJwt(user: Omit<SessionUser, "iat" | "exp">): Promise<s
   return new SignJWT(user)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("8h")
+    .setExpirationTime("60d")
     .sign(signingKey)
 }
 
@@ -162,13 +162,12 @@ export const authPlugin = new Elysia({ name: "auth" })
         avatar: hash(result.account?.idTokenClaims?.preferred_username ?? result.account?.username ?? result.account?.localAccountId ?? ""),
       })
 
-      // Set the session cookie
       cookie[config.cookie.name]!.set({
         value: jwt,
         httpOnly: true,
         secure: config.isProd,
         sameSite: "lax",
-        maxAge: 8 * 60 * 60, // 8 hours, matches JWT exp
+        maxAge: 60 * 24 * 60 * 60,
         path: "/",
       })
 

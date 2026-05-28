@@ -20,6 +20,9 @@ CREATE TABLE game.Users (
 );
 
 CREATE UNIQUE INDEX UQ_Users_DriverId ON game.Users (Email);
+CREATE /*UNIQUE*/ NONCLUSTERED INDEX UQ_Users_ActualDriverId 
+ON game.Users(DriverId) 
+INCLUDE (Name, Email);
 
 CREATE TABLE game.FuelMonthlyStats (
   DriverId          NVARCHAR(50)   NOT NULL,
@@ -45,6 +48,9 @@ CREATE TABLE game.FuelMonthlyStats (
   CONSTRAINT PK_FuelMonthlyStats PRIMARY KEY (DriverId, FuelType, MonthKey),
   CONSTRAINT CK_FuelMonthlyStats_FuelType CHECK (FuelType IN ('Essence', 'Diesel'))
 );
+CREATE NONCLUSTERED INDEX IX_FuelMonthlyStats_Dashboard 
+ON game.FuelMonthlyStats (DriverId, MonthKey DESC) 
+INCLUDE (MonthlyKm, AvgL100Km, MonthlyAmountEUR, BaselineL100, BaselineKm, BaselineAmountEUR, DeltaPctL100);
 
 CREATE TABLE game.FuelSeasons (
   SeasonId          INT            IDENTITY(1,1) PRIMARY KEY,
@@ -76,6 +82,17 @@ CREATE TABLE game.FuelScores (
 );
 
 CREATE INDEX IX_FuelScores_Season_Leaderboard ON game.FuelScores (SeasonId, FinalScore DESC);
+CREATE NONCLUSTERED INDEX IX_FuelScores_Optimization ON game.FuelScores (DriverId, SeasonId) INCLUDE (FinalScore, ComputedAt);
+CREATE NONCLUSTERED INDEX IX_FuelScores_Dashboard 
+ON game.FuelScores (DriverId, MonthKey DESC) 
+INCLUDE (PtsL100, PtsTrend, RawScore, StreakMonths, Multiplier, FinalScore);
+CREATE NONCLUSTERED INDEX IX_FuelScores_Season_Grouping
+ON game.FuelScores(SeasonId) 
+INCLUDE (DriverId, FinalScore);
+CREATE NONCLUSTERED INDEX IX_FuelScores_LastTrend
+ON game.FuelScores(DriverId, SeasonId, MonthKey DESC)
+INCLUDE (FinalScore);
+
 
 CREATE TABLE game.FuelBadgeDefinitions (
   BadgeCode         VARCHAR(30)    NOT NULL PRIMARY KEY,
@@ -84,6 +101,9 @@ CREATE TABLE game.FuelBadgeDefinitions (
   Icon              NVARCHAR(10)   NOT NULL,
   SortOrder         INT            NOT NULL CONSTRAINT DF_FuelBadgeDefinitions_SortOrder DEFAULT 0
 );
+CREATE NONCLUSTERED INDEX IX_FuelBadgeDefinitions_Sort 
+ON game.FuelBadgeDefinitions(SortOrder) 
+INCLUDE (BadgeCode, Name, Description, Icon);
 
 CREATE TABLE game.FuelBadges (
   Id                INT            IDENTITY(1,1) PRIMARY KEY,
