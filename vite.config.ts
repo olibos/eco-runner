@@ -26,7 +26,6 @@ export default defineConfig({
     }
   },
   plugins: [react(), VitePWA({
-    registerType: 'autoUpdate',
     workbox: {
       navigateFallbackDenylist: [/^\/api/i, /^\/auth/i],
       cacheId: 'eco-runner-cache',
