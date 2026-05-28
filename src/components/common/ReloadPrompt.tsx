@@ -9,8 +9,6 @@ export function ReloadPrompt() {
         updateServiceWorker,
     } = useRegisterSW();
 
-    console.info(5);
-
     if (!needRefresh) return null;
 
     return (

@@ -10,14 +10,16 @@ import { Challenges } from "./Challenges";
 import { useFullscreen } from "../../hooks/full-screen";
 import { useFuelData } from "../../hooks/useFuelData";
 import { useBeforeInstallPrompt } from "../../hooks/before-install-prompt";
+import { useIsStandalone } from "../../hooks/is-standalone";
 
 export function Game() {
     const [showBriefing, setShowBriefing] = useLocalState('show-briefing', true);
     const { data } = useFuelData();
     const beforeInstallPrompt = useBeforeInstallPrompt();
     const isFullscreen = useFullscreen();
+    const isStandalone = useIsStandalone();
     function handleClose() {
-        document.exitFullscreen();
+        document.exitFullscreen().catch(console.warn);
         window.close();
     }
     const hasStats = data?.stats && data.stats.length > 0;
@@ -43,7 +45,7 @@ export function Game() {
                             <Briefing />
                         </MenuItem>
                         {beforeInstallPrompt && <MenuItem label="Installer" onClick={beforeInstallPrompt} />}
-                        {isFullscreen && <MenuItem label="Fermer" onClick={handleClose} />}
+                        {(isFullscreen || isStandalone) && <MenuItem label="Fermer" onClick={handleClose} />}
                     </MainMenu>
                 </>
             )}

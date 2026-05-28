@@ -11,7 +11,7 @@ import { useIsStandalone } from './hooks/is-standalone';
 
 export default function App() {
   const isStandalone = useIsStandalone();
-  const [showIntro, setShowIntro] = useState(isStandalone);
+  const [showIntro, setShowIntro] = useState(!isStandalone);
 
   return (
     <FuelDataProvider>
