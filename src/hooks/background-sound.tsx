@@ -32,8 +32,8 @@ export function BackgroundSoundProvider({ children }: { children: React.ReactNod
                         controller.abort();
                         audio.play().catch(console.error);
                     };
-                    window.addEventListener('keypress', handle, { signal: controller.signal });
-                    window.addEventListener('click', handle, { signal: controller.signal });
+                    window.addEventListener('keypress', handle, { signal: controller.signal, capture: true });
+                    window.addEventListener('click', handle, { signal: controller.signal, capture: true });
                 })
         }
     });
