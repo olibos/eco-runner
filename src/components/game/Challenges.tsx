@@ -1,7 +1,9 @@
+import { useLocalState } from '../../hooks/local-state';
 import { useFuelData } from '../../hooks/useFuelData';
 import { Dialog } from '../common/Dialog';
 
 import { SectionTitle } from '../fuel-overlay/SectionTitle';
+import { ChallengesHelp } from './ChallengesHelp';
 
 const Icons : Record<string, string> = {
 	SEEDLING: '🌱',
@@ -14,7 +16,10 @@ const Icons : Record<string, string> = {
 };
 export function Challenges() {
 	const { data, isLoading, error } = useFuelData();
+	const [showHelp, setShowHelp] = useLocalState('show-help', true);
 
+	console.info({data, showHelp, isLoading, error});
+	if (showHelp) return <ChallengesHelp onClose={() => { console.info('close');setShowHelp(false)}} />;
 	if (isLoading) return <Dialog open><div>Chargement...</div></Dialog>;
 	if (error || !data) return <Dialog open><div>Erreur: {error || 'Data missing'}</div></Dialog>;
 
@@ -60,7 +65,7 @@ export function Challenges() {
 	];
 
 	return (
-		<Dialog open>
+		<Dialog open onHelp={() => setShowHelp(true)}>
 			<SectionTitle>Défis du mois</SectionTitle>
 			<div className="fo-challenges-list">
 				{challenges.map((c, i) => (

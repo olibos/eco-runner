@@ -21,6 +21,15 @@ export const apiRoutes = new Elysia({ prefix: "/api" })
         name:  user!.name,
         avatar: user!.avatar,
       }))
+      // ── GET /api/players — list all players ────────────────────────────────
+      .get("/players", async () => {
+        const pool = await getPool();
+        const res = await pool.request().query("SELECT Name, Email FROM game.Users ORDER BY Name ASC");
+        return res.recordset.map(r => ({
+          name: r.Name,
+          av: hash(r.Email)
+        }));
+      })
       // ── GET /api/fuel — full dashboard data payload ────────────────────────
       .get("/fuel", async ({ user, set, request }) => {
         if (!user) return new Response("Unauthorized", { status: 401 });
