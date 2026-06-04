@@ -121,7 +121,7 @@ export const apiRoutes = new Elysia({ prefix: "/api" })
     )
     SELECT * 
     FROM CTE_Ranked
-    WHERE Rank <= 10
+    WHERE Rank <= 10 and TotalScore > 0
     ORDER BY Rank, Name;
                 `);
         const [statsRes, scoresRes, badgesRes, lbRes] = results.recordsets as [IRecordSet<any>, IRecordSet<any>, IRecordSet<any>, IRecordSet<any>];
