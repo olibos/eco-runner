@@ -7,7 +7,9 @@ export function Avatar() {
         <img
             src={`https://ik.imagekit.io/olibos/tr:n-thumb/${avatar}.jpg`}
             alt=""
+            onError={e => e.currentTarget.src = '/default.jpg'}
             className={Classes.avatar}
+            crossOrigin="anonymous"
         />
     )
 }

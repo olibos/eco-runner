@@ -9,11 +9,11 @@ import { SectionTitle } from '../fuel-overlay/SectionTitle';
 import { fmtPct, type ChartMode } from '../fuel-overlay/constants';
 
 export function Dashboard() {
-	const { data, loading, error } = useFuelData();
+	const { data, isLoading, error } = useFuelData();
 	const [chartMode, setChartMode] = useState<ChartMode>('l100');
 	const kpiSign = (v: number | null) => v != null && v <= 0;
 
-	if (loading) return <Dialog open><div>Chargement...</div></Dialog>;
+	if (isLoading) return <Dialog open><div>Chargement...</div></Dialog>;
 	if (error || !data) return <Dialog open><div>Erreur: {error || 'Data missing'}</div></Dialog>;
 
 	const { CUR, CUR_SCORE, blL100, pctL100, finalScore, streak, M, leaderboard: LB, driver: { score } } = data;

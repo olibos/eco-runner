@@ -1,21 +1,17 @@
 import clsx from 'clsx';
 import Classes from './Intro.module.scss';
 import { useEffect } from 'react';
-import { useBackgroundSound } from '../hooks/background-sound';
-import { useFuelData } from '../hooks/useFuelData';
 
 type Props = {
     onClose(): void;
 }
 
 export function Intro({ onClose }: Props) {
-    const { autoPlay } = useBackgroundSound();
     useEffect(() => {
         const controller = new AbortController();
         const handle = async () => {
             if (controller.signal.aborted) return;
             controller.abort();
-            autoPlay();
             onClose();
             await document.body.requestFullscreen().catch(console.warn);
         };

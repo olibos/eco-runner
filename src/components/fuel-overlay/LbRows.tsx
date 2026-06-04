@@ -28,6 +28,8 @@ export function LbRows({ entries }: { entries: LbEntry[] }) {
 								src={`https://ik.imagekit.io/olibos/tr:n-thumb/${p.av}.jpg`}
 								alt=""
 								className={styles.avatar}
+					            onError={e => e.currentTarget.src = '/default.jpg'}
+								crossOrigin="anonymous"
 							/>
 						</div>
 						<div>

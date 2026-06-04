@@ -72,7 +72,6 @@
         text-align: center;
         white-space: nowrap;
         text-transform: uppercase;
-        font-family: var(--menu-font-family);
         font-size: clamp(1.1rem, 2vw, 1.5rem);
         letter-spacing: 0.05em;
         cursor: pointer;
@@ -111,8 +110,8 @@
 
 .closeButton {
     position: absolute;
-    top: 1rem;
-    right: 1.2rem;
+    top: -0.35rem;
+    right: -0.35rem;
     background: transparent;
     border: none;
     color: rgba(255, 186, 84, 0.72);

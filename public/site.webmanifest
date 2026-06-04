@@ -1,6 +1,7 @@
 {
   "name": "ECO-RUNNER",
   "short_name": "ECO-RUNNER",
+  "start_url": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

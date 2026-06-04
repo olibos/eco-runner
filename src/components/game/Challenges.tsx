@@ -13,9 +13,9 @@ const Icons : Record<string, string> = {
 	CROWN: '👑',
 };
 export function Challenges() {
-	const { data, loading, error } = useFuelData();
+	const { data, isLoading, error } = useFuelData();
 
-	if (loading) return <Dialog open><div>Chargement...</div></Dialog>;
+	if (isLoading) return <Dialog open><div>Chargement...</div></Dialog>;
 	if (error || !data) return <Dialog open><div>Erreur: {error || 'Data missing'}</div></Dialog>;
 
 	const { CUR, CUR_SCORE, blL100, pctL100, badges: BADGES, M, streak } = data;
