@@ -21,7 +21,7 @@ const swr = {
     revalidateOnReconnect: true,
     shouldRetryOnError: false,
     compare(a, b) {
-      return a === b || a?.etag === b?.etag;
+      return a === b || (a?.etag && a.etag === b?.etag);
     },
     provider() {
       const map = new Map<string, any>(JSON.parse(localStorage.getItem('app-cache') ?? '[]'));
