@@ -7,6 +7,9 @@ import { useMenu } from '../../hooks/menu';
 export type DialogProps = DialogHTMLAttributes<HTMLDialogElement> & {
     autoScroll?: boolean;
     showCloseButton?: boolean;
+    disableMenuContext?: boolean;
+    onHelp?(): void;
+    onClose?(): void;
 }
 
 export function Dialog({
@@ -14,7 +17,9 @@ export function Dialog({
     autoScroll,
     children,
     onClose,
+    onHelp,
     showCloseButton = true,
+    disableMenuContext,
     ...dialogProps
 }: DialogProps) {
     const contentRef = useRef<HTMLFormElement>(null);
@@ -46,9 +51,9 @@ export function Dialog({
         };
     }, []);
 
-    function handleClose(e: SyntheticEvent<HTMLDialogElement>) {
-        close?.();
-        onClose?.(e);
+    function handleClose() {
+        if (!disableMenuContext && close) close();
+        onClose?.();
     }
 
     function stopPropagation(e: SyntheticEvent) {
@@ -57,12 +62,12 @@ export function Dialog({
 
     useEffect(() => {
         const controller = new AbortController();
-        addEventListener('click', () => close?.(), { signal: controller.signal });
+        addEventListener('click', () => handleClose(), { signal: controller.signal });
         addEventListener('keydown', e => {
             const event = e as unknown as KeyboardEvent;
             if (event.key === 'Escape' || event.key === 'Enter') {
                 e.preventDefault();
-                close?.();
+                handleClose();
             }
         }, { signal: controller.signal });
         return () => {
@@ -73,13 +78,25 @@ export function Dialog({
     return (
         <dialog className={clsx(styles.dialog, className)} {...dialogProps} onClose={handleClose} onClick={stopPropagation}>
             <form method="dialog" className={styles.form} ref={contentRef}>
-                {showCloseButton && (
-                    <button className={styles.closeButton} title="Close">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
+                {(onHelp || showCloseButton) && (
+                    <div className={styles.buttons}>
+                        {onHelp && (
+                            <button type="button" title="Help" onClick={onHelp}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                            </button>
+                        )}
+                        {showCloseButton && (
+                            <button title="Close">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        )}
+                    </div>
                 )}
                 {children}
             </form>

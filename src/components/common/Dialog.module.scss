@@ -108,30 +108,35 @@
     }
 }
 
-.closeButton {
+.buttons {
     position: absolute;
     top: -0.35rem;
     right: -0.35rem;
-    background: transparent;
-    border: none;
-    color: rgba(255, 186, 84, 0.72);
-    cursor: pointer;
-    padding: 0.5rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    border-radius: 50%;
+    gap: 0.5rem;
 
-    &:hover,
-    &:focus-visible {
-        color: #fff2d2;
-        background: rgba(255, 188, 80, 0.2);
-        outline: none;
-    }
+    button {
+        background: transparent;
+        border: none;
+        color: rgba(255, 186, 84, 0.72);
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        border-radius: 50%;
 
-    svg {
-        width: 24px;
-        height: 24px;
+        &:hover,
+        &:focus-visible {
+            color: #fff2d2;
+            background: rgba(255, 188, 80, 0.2);
+            outline: none;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
     }
 }
