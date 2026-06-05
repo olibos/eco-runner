@@ -72,7 +72,6 @@ export function FuelDataProvider({ children }: { children: ReactNode }) {
     const data = useMemo(() => {
         if (!rawData) return null;
 
-        // Compute derived values identical to fuelData.ts logic
         const stats = rawData.stats;
         const scores = rawData.scores;
 
