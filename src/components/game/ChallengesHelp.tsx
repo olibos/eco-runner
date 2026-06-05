@@ -25,7 +25,7 @@ export function ChallengesHelp({ onClose }: { onClose: () => void }) {
                     <div className={styles.multipliers}>
                         <span>2 mois: <strong>x1.20</strong></span>
                         <span>3 mois: <strong>x1.50</strong></span>
-                        <span>4+ mois: <strong>x1.75</strong></span>
+                        <span>4 mois et +: <strong>x1.75</strong></span>
                     </div>
                 </section>
 

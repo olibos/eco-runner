@@ -31,9 +31,9 @@ ${title('🔧 PARAMÈTRES D\'OPTIMISATION :')}`)
                         .pauseFor(500)
                         .typeString(`
 <ul>
-<li><b>Pilotage prédictif</b>: Conduite fluide, anticipation des flux. Lever le pied en amont, c'est convertir chaque goutte en distance utile.<br><br></li>
-<li><b>Coop mode activé</b>: Covoiturage = mutualisation d'énergie cinétique. Moins de véhicules en circulation, moins de friction sur le réseau.<br><br></li>
-<li><b>Filtrer les trajets parasites</b>: Si le déplacement n'a pas de finalité opérationnelle, il est annulé. Pas de kilomètres fantômes dans le système.<br><br></li>
+<li><b>Pilotage prédictif</b>: conduite fluide, anticipation des flux. Lever le pied en amont, c'est convertir chaque goutte en distance utile.<br><br></li>
+<li><b>Coop mode activé</b>: covoiturage = mutualisation d'énergie cinétique. Moins de véhicules en circulation, moins de friction sur le réseau.<br><br></li>
+<li><b>Filtrer les trajets parasites</b>: si le déplacement n'a pas de finalité opérationnelle, il est annulé. Pas de kilomètres fantômes dans le système.<br><br></li>
 <li><b>Alternatives déverrouillées</b>: mobilité douce, transports collectifs…<br><br></li>
 </ul>
 
