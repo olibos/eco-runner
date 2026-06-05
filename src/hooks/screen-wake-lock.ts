@@ -9,14 +9,7 @@ async function requestWakeLock() {
     if (lockCount > 0 && (!wakeLock || wakeLock.released)) {
         try {
             wakeLock = await navigator.wakeLock.request('screen');
-            console.info('Wake Lock acquired:', wakeLock);
-            wakeLock.addEventListener(
-                'release',
-                () => {
-                    wakeLock = null;
-                    console.info('Wake Lock released');
-                },
-                { once: true });
+            wakeLock.addEventListener('release', () => wakeLock = null, { once: true });
         } catch (err) {
             console.warn('Wake Lock request failed:', err);
         }
