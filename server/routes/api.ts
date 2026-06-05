@@ -96,29 +96,33 @@ export const apiRoutes = new Elysia({ prefix: "/api" })
     DECLARE @ActiveSeasonId INT = (SELECT TOP 1 SeasonId FROM game.FuelSeasons WHERE IsActive = 1);
 
     WITH CTE_TopDrivers AS (
-        SELECT TOP 10 
-            DriverId, 
+        SELECT DriverId, 
             SUM(FinalScore) AS TotalScore
         FROM game.FuelScores
         WHERE SeasonId = @ActiveSeasonId
         GROUP BY DriverId
-        ORDER BY TotalScore DESC
+    ),
+    CTE_Ranked AS (
+        SELECT 
+            RANK() OVER (ORDER BY d.TotalScore DESC) AS Rank,
+            d.DriverId, 
+            u.Name, 
+            u.Email, 
+            d.TotalScore,
+            (
+                SELECT TOP 1 fs.FinalScore 
+                FROM game.FuelScores fs 
+                WHERE fs.DriverId = d.DriverId 
+                AND fs.SeasonId = @ActiveSeasonId
+                ORDER BY fs.MonthKey DESC
+            ) AS LastTrend
+        FROM CTE_TopDrivers d
+        JOIN game.Users u ON d.DriverId = u.DriverId
     )
-    SELECT 
-        d.DriverId, 
-        u.Name, 
-        u.Email, 
-        d.TotalScore,
-        (
-            SELECT TOP 1 fs.FinalScore 
-            FROM game.FuelScores fs 
-            WHERE fs.DriverId = d.DriverId 
-            AND fs.SeasonId = @ActiveSeasonId
-            ORDER BY fs.MonthKey DESC
-        ) AS LastTrend
-    FROM CTE_TopDrivers d
-    JOIN game.Users u ON d.DriverId = u.DriverId
-    ORDER BY d.TotalScore DESC;
+    SELECT * 
+    FROM CTE_Ranked
+    WHERE Rank <= 10 and TotalScore > 0
+    ORDER BY Rank, Name;
                 `);
         const [statsRes, scoresRes, badgesRes, lbRes] = results.recordsets as [IRecordSet<any>, IRecordSet<any>, IRecordSet<any>, IRecordSet<any>];
 
@@ -127,8 +131,8 @@ export const apiRoutes = new Elysia({ prefix: "/api" })
           stats: statsRes,
           scores: scoresRes,
           badges: badgesRes,
-          leaderboard: lbRes?.map((r, i) => ({
-            rank: i + 1,
+          leaderboard: lbRes?.map((r) => ({
+            rank: r.Rank,
             av: hash(r.Email),
             name: r.Name,
             score: r.TotalScore,

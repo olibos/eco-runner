@@ -16,10 +16,10 @@ export function LbRows({ entries }: { entries: LbEntry[] }) {
 
 	return (
 		<div className={styles.list} style={{ '--column-count': entries.length > 5 ? 2 : 1 } as React.CSSProperties}>
-			{entries.map((p) => {
+			{entries.map((p, i) => {
 				const trendClass = p.trend.startsWith('+') ? styles.isUp : styles.isDown;
 				return (
-					<div key={p.rank} className={clsx(styles.row, p.me && styles.isMe)}>
+					<div key={i} className={clsx(styles.row, p.me && styles.isMe)}>
 						<div className={clsx(styles.rank, rankClass(p.rank))}>
 							{rankIcon(p.rank)}
 						</div>
