@@ -1,0 +1,59 @@
+.container {
+    height: calc(70dvh - 80px);
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+.intro {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2rem;
+    border-left: 2px solid #ff003c;
+    padding-left: 1rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.scrollTrack {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    --speed:70s;
+    animation: scrollVertical var(--speed) linear infinite;
+}
+
+.playerCard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar {
+    width: 80px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+@keyframes scrollVertical {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-50%);
+    }
+}

@@ -7,6 +7,7 @@ import { LbRows } from '../fuel-overlay/LbRows';
 import { ScoreBar } from '../fuel-overlay/ScoreBar';
 import { SectionTitle } from '../fuel-overlay/SectionTitle';
 import { fmtPct, type ChartMode } from '../fuel-overlay/constants';
+import clsx from 'clsx';
 
 export function Dashboard() {
 	const { data, isLoading, error } = useFuelData();
@@ -22,7 +23,7 @@ export function Dashboard() {
 	return (
 		<Dialog open>
 
-			<div className="fo-dashboard-grid">
+			<div className={clsx("fo-dashboard-grid", LB.length === 0 && 'season-opening')}>
 				<div>
 					<SectionTitle>Performances — {CUR.MonthKey.replace('-', ' · ')}</SectionTitle>
 					<div className="fo-kpi-grid">
@@ -86,7 +87,7 @@ export function Dashboard() {
 					</div>
 				</div>
 
-				<div>
+				<div className="fo-dashboard-sidebar">
 					<SectionTitle>Score du mois</SectionTitle>
 					<div className="fo-glass-panel fo-panel-pad-md fo-mb-14">
 						<div className="fo-score-header-row">

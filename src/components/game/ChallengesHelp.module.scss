@@ -1,0 +1,75 @@
+@import "../../App.scss";
+
+
+.header {
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--fo-accent-glow);
+  padding-left: 1rem;
+}
+
+.tag {
+  font-size: 0.7rem;
+  color: var(--fo-muted);
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-family: 'Wipeout', sans-serif;
+  font-size: 1.8rem;
+  color: var(--fo-accent-glow);
+  margin: 0;
+  text-shadow: 0 0 10px rgba(217, 119, 6, 0.3);
+}
+
+.body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--fo-text);
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.h3 {
+  font-family: 'Wipeout', sans-serif;
+  font-size: 1rem;
+  color: var(--fo-muted);
+  margin-bottom: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.list {
+  list-style: none;
+  padding-left: 1rem;
+  li {
+    margin-bottom: 0.6rem;
+    position: relative;
+    &::before {
+      content: '>';
+      position: absolute;
+      left: -1rem;
+      color: var(--fo-accent-glow);
+      font-weight: bold;
+    }
+  }
+  strong {
+    color: var(--fo-accent-glow);
+  }
+}
+
+.multipliers {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-around;
+  border: 1px dashed var(--fo-border);
+  font-family: 'Orbitron', monospace;
+  
+  strong {
+    color: var(--fo-purple);
+  }
+}
