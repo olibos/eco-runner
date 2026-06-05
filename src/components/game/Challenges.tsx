@@ -18,11 +18,9 @@ export function Challenges() {
 	const { data, isLoading, error } = useFuelData();
 	const [showHelp, setShowHelp] = useLocalState('show-help', true);
 
-	console.info({data, showHelp, isLoading, error});
-	if (showHelp) return <ChallengesHelp onClose={() => { console.info('close');setShowHelp(false)}} />;
+	if (showHelp) return <ChallengesHelp onClose={() => { setShowHelp(false)}} />;
 	if (isLoading) return <Dialog open><div>Chargement...</div></Dialog>;
 	if (error || !data) return <Dialog open><div>Erreur: {error || 'Data missing'}</div></Dialog>;
-
 	const { CUR, CUR_SCORE, blL100, pctL100, badges: BADGES, M, streak } = data;
 	if (!CUR || !CUR_SCORE) return <Dialog open><div>Données de performance manquantes</div></Dialog>;
 	const challenges = [

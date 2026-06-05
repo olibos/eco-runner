@@ -27,7 +27,6 @@ export function AllPlayersShowcase() {
         console.error('Failed to fetch players', error);
     }
 
-    console.log('Fetched players for showcase:', players, isLoading, error);
     if (isLoading) return <div>Chargement des participants...</div>;
     if (players.length === 0) return <div>Préparez-vous pour la nouvelle saison !</div>;
 
