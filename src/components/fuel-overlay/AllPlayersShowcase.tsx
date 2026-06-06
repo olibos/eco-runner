@@ -47,6 +47,8 @@ export function AllPlayersShowcase() {
                             src={`https://ik.imagekit.io/olibos/tr:n-thumb/${p.av}.jpg`} 
                             alt="" 
                             className={styles.avatar} 
+                            onError={e => e.currentTarget.src = '/default.jpg'}
+                            crossOrigin="anonymous"
                         />
                         <span className={styles.name}>{p.name}</span>
                     </div>
