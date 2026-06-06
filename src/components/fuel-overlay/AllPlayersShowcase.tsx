@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import styles from './AllPlayersShowcase.module.scss';
 import useSWR from 'swr';
+import { useScreenWakeLock } from '../../hooks/screen-wake-lock';
 
 type Player = {
     name: string;
@@ -8,7 +9,7 @@ type Player = {
 };
 
 export function AllPlayersShowcase() {
-
+    useScreenWakeLock();
     const { data: players = [], isLoading, error } = useSWR<Player[]>('/api/players');
     const scrollRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
