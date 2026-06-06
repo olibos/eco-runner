@@ -27,8 +27,8 @@ export default defineConfig({
   },
   plugins: [react(), VitePWA({
     workbox: {
-      navigateFallbackDenylist: [/^\/api/i, /^\/auth/i],
-      cacheId: 'eco-runner-cache',
+      navigateFallbackDenylist: [/^\/api/i, /^\/auth/i, /^\/sw.js/i],
+      cacheId: 'eco-runner-cache-1-6',
       globPatterns: ['index.html', 'favicon.ico', '*.png', 'default.jpg', 'assets/*', "site.webmanifest"],
       runtimeCaching: [
         {
